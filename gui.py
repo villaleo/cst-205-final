@@ -18,12 +18,17 @@ class ResultsWindow(QWidget):
         super().__init__()
         self.__SearchResultsWindow(query, app_name)
 
-    def search(self, query):
+    def search(self, query) -> dict:
         """
 
         """
         # TODO: Connect API media search **
-        pass
+        # Return a dict with values to use when displaying the search
+        # results onto the window.
+        return {
+            "title": "SampleTitle",
+            "thumbnail": "SampleThumbnail"
+        }
 
     def __SearchResultsWindow(self, query, app_name) -> None:
         self.appName = QLabel(self)
