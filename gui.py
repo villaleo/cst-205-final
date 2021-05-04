@@ -25,9 +25,12 @@ class ResultsWindow(QWidget):
         # TODO: Connect API media search **
         # Return a dict with values to use when displaying the search
         # results onto the window.
+
+        # Sample Image:
+        # "debug/img/i1.jpg"
         return {
-            "title": "SampleTitle",
-            "thumbnail": "SampleThumbnail"
+            "title": "ThumbnailName",
+            "thumbnail": "debug/img/i1.jpg"
         }
 
     def __SearchResultsWindow(self, query, app_name) -> None:
@@ -35,6 +38,11 @@ class ResultsWindow(QWidget):
         self.null_space = QLabel("\t")
         self.media_entry_field = QLineEdit(f"{query}")
         self.search_button = QPushButton("Search")
+
+        self.thumbnail_frame = QLabel()
+        thumbnail = QPixmap(self.search(query)["thumbnail"])
+        thumbnail = thumbnail.scaled(300, 360, Qt.KeepAspectRatio)
+        self.thumbnail_frame.setPixmap(thumbnail)
 
         self.appName.setText(f"<h1>{app_name}</h1>")
 
@@ -48,6 +56,8 @@ class ResultsWindow(QWidget):
 
         v1_layout = QVBoxLayout()
         v1_layout.addLayout(h1_layout)
+        v1_layout.addWidget(self.null_space)
+        v1_layout.addWidget(self.thumbnail_frame)
 
         self.setLayout(v1_layout)
 
