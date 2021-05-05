@@ -15,6 +15,7 @@ songsplayed = 0
 songcount = 0
 songlist = []
 songurls = []
+songthumbnails = []
 
 def getSong():
     #Search for song via user input
@@ -29,8 +30,10 @@ def getSong():
     results = requests.execute()
     #from results grab video id
     global videourl
+    global thumbnail
     for item in results['items']:
         videourl = (item['id']['videoId'])
+        thumbnail = (item['snippet']['thumbnails']['high']['url'])
     #assign video id to a url
     videourl = 'https://www.youtube.com/watch?v=' + videourl
     #get song title
@@ -40,6 +43,7 @@ def getSong():
     #insert title and url into list to grab
     songlist.insert(songcount, songtitle)
     songurls.insert(songcount, videourl)
+    songthumbnails.insert(songcount, thumbnail)
     print(songlist[songcount], ", Has been Added!")
     songcount = songcount + 1
     return videourl
