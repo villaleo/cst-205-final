@@ -47,6 +47,7 @@ class ResultsWindow(h.QWidget):
         self.null_space = h.QLabel("\t")
         self.media_entry_field = h.QLineEdit(f"{query}")
         self.search_button = h.QPushButton("Search")
+        self.media_title = h.QLabel(self.__search(query)["title"])
 
         self.thumbnail_frame = h.QLabel()
         thumbnail = h.QPixmap(self.__search(query)["thumbnail"])
@@ -66,9 +67,8 @@ class ResultsWindow(h.QWidget):
         v1_layout = h.QVBoxLayout()
         v1_layout.addLayout(h1_layout)
         v1_layout.addWidget(self.null_space)
+        v1_layout.addWidget(self.media_title)
         v1_layout.addWidget(self.thumbnail_frame)
 
-        self.setWindowTitle(query)
-        # Window title become query temporarily
-        # Want to be the media title
+        self.setWindowTitle(self.media_title.text())
         self.setLayout(v1_layout)
