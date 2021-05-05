@@ -46,7 +46,7 @@ class ResultsWindow(QWidget):
 
     def __SearchResultsWindow(self, query, app_name) -> None:
         """
-        Contains all the Qt objects needed to construct the window and its widgets.
+        Contains the Qt objects needed to construct the window and its widgets.
 
         + `query` : The user's input which will be sent to YouTube.
         + `app_name` : The name of the application (to prevent manually changing each instance).
@@ -81,22 +81,20 @@ class ResultsWindow(QWidget):
 
 class HomeWindow(QWidget):
     """
-
+    Create a main window, where the user can enter a query and YouTube will
+    find a corresponding match.
     """
 
     # TODO: Name for application.
     app_name = "AppName"
 
-    def __init__(self):
-        """
-
-        """
+    def __init__(self) -> HomeWindow:
         super().__init__()
         self.__HomePage()
 
     def __HomePage(self) -> None:
         """
-
+        Contains the Qt objects needed to construct the window and its widgets.
         """
         self.appName = QLabel(self)
         self.null_space = QLabel("\t")
@@ -121,13 +119,15 @@ class HomeWindow(QWidget):
 
         v1_layout.addLayout(h1_layout)
 
+        # TODO: Add our names on the bottom of the window.
+
         self.search_button.clicked.connect(self.call_results_HomeWindow)
         self.setLayout(v1_layout)
 
-    @Slot()
+    @Slot()  # TODO: Rename this method!
     def call_results_HomeWindow(self) -> None:
         """
-
+        Closes the main window and opens a new window, containing the search results.
         """
         self.close()
         query = self.media_entry_field.text()
