@@ -68,4 +68,7 @@ class ResultsWindow(h.QWidget):
         v1_layout.addWidget(self.null_space)
         v1_layout.addWidget(self.thumbnail_frame)
 
+        self.setWindowTitle(query)
+        # Window title become query temporarily
+        # Want to be the media title
         self.setLayout(v1_layout)
