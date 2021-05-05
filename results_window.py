@@ -72,3 +72,6 @@ class ResultsWindow(h.QWidget):
 
         self.setWindowTitle(self.media_title.text())
         self.setLayout(v1_layout)
+
+    # def __SearchResultsWindow(self, query, app_name, media_attr) -> None:
+    #     pass
