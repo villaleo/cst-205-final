@@ -11,20 +11,31 @@ from PySide6.QtCore import (Slot, Qt)
 
 class ResultsWindow(QWidget):
     """
+    Create a new window which uses the text passed into the search bar 
+    from the main window.
 
+    Searches YouTube for `query` and plays the sound and displays the information
+    of the video.
+
+    + `query` : The user's input which will be sent to YouTube.
+    + `app_name` : The name of the application (to prevent manually changing each instance).
     """
 
-    def __init__(self, query, app_name):
+    def __init__(self, query, app_name) -> ResultsWindow:
         super().__init__()
         self.__SearchResultsWindow(query, app_name)
 
     def search(self, query) -> dict:
         """
+        Performs the YouTube search using `query` and returns a dictionary containing each
+        key-value pair of data sent back.
 
+        Returns a dictionary object containing `"title"`, the name of the video title and 
+        `"thumbnail"`, the path to the image file.
+
+        + `query` : The user's input which will be sent to YouTube.
         """
         # TODO: Connect API media search **
-        # Return a dict with values to use when displaying the search
-        # results onto the window.
 
         # Sample Image:
         # "debug/img/i1.jpg"
@@ -34,6 +45,12 @@ class ResultsWindow(QWidget):
         }
 
     def __SearchResultsWindow(self, query, app_name) -> None:
+        """
+        Contains all the Qt objects needed to construct the window and its widgets.
+
+        + `query` : The user's input which will be sent to YouTube.
+        + `app_name` : The name of the application (to prevent manually changing each instance).
+        """
         self.appName = QLabel(self)
         self.null_space = QLabel("\t")
         self.media_entry_field = QLineEdit(f"{query}")
