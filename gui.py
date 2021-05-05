@@ -25,7 +25,7 @@ class ResultsWindow(QWidget):
         super().__init__()
         self.__SearchResultsWindow(query, app_name)
 
-    def search(self, query) -> dict:
+    def __search(self, query) -> dict:
         """
         Performs the YouTube search using `query` and returns a dictionary containing each
         key-value pair of data sent back.
