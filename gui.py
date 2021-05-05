@@ -21,7 +21,7 @@ class ResultsWindow(QWidget):
     + `app_name` : The name of the application (to prevent manually changing each instance).
     """
 
-    def __init__(self, query, app_name) -> ResultsWindow:
+    def __init__(self, query, app_name):
         super().__init__()
         self.__SearchResultsWindow(query, app_name)
 
@@ -57,7 +57,7 @@ class ResultsWindow(QWidget):
         self.search_button = QPushButton("Search")
 
         self.thumbnail_frame = QLabel()
-        thumbnail = QPixmap(self.search(query)["thumbnail"])
+        thumbnail = QPixmap(self.__search(query)["thumbnail"])
         thumbnail = thumbnail.scaled(300, 360, Qt.KeepAspectRatio)
         self.thumbnail_frame.setPixmap(thumbnail)
 
@@ -88,7 +88,7 @@ class HomeWindow(QWidget):
     # TODO: Name for application.
     app_name = "AppName"
 
-    def __init__(self) -> HomeWindow:
+    def __init__(self):
         super().__init__()
         self.__HomePage()
 
@@ -121,13 +121,13 @@ class HomeWindow(QWidget):
 
         # TODO: Add our names on the bottom of the window.
 
-        self.search_button.clicked.connect(self.call_results_HomeWindow)
+        self.search_button.clicked.connect(self.get_results)
         self.setLayout(v1_layout)
 
-    @Slot()  # TODO: Rename this method!
-    def call_results_HomeWindow(self) -> None:
+    @Slot()
+    def get_results(self) -> None:
         """
-        Closes the main window and opens a new window, containing the search results.
+        Close the main window and opens a new window, containing the search results.
         """
         self.close()
         query = self.media_entry_field.text()
