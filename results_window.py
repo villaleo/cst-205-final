@@ -19,19 +19,20 @@ class ResultsWindow(h.QWidget):
 
     def __trim_window_title(self, window_title) -> str:
         """
-
+        # TODO: DOCUMENT ME **
         """
         pass
 
     def __trim_media_title(self, media_title) -> str:
         """
-
+        # TODO: DOCUMENT ME **
         """
         pass
 
     def __search(self, query) -> dict:
         """
         # TODO: UPDATE THE DOCSTRING **
+
         Performs the YouTube search using `query` and returns a dictionary containing each
         key-value pair of data sent back.
 
@@ -40,11 +41,12 @@ class ResultsWindow(h.QWidget):
 
         + `query` : The user's input which will be sent to YouTube.
         """
+
         # TODO: Connect API media search **
 
         # Source: https://stackoverflow.com/questions/24003043/pyqt4-and-python-3-display-an-image-from-url
 
-        # Current thumbnail image is a sample.
+        # NOTE: Current thumbnail image is a sample.
         image_url = "https://f4.bcbits.com/img/a3122062570_10.jpg"
         image_data = h.urllib.request.urlopen(image_url).read()
 
@@ -52,7 +54,7 @@ class ResultsWindow(h.QWidget):
         img.loadFromData(image_data)
 
         return {
-            # 53 chars:
+            # NOTE: 53 chars..
             "title": "ABCDEFGHIJKLMNOPQRSTUVWXYZ_ABCDEFGHIJKLMNOPQRSTUVWXYZ",
             "thumbnail": img
         }
@@ -101,6 +103,3 @@ class ResultsWindow(h.QWidget):
 
         self.setWindowTitle(self.media_title)
         self.setLayout(v1_layout)
-
-    # def __SearchResultsWindow(self, query, app_name, media_attr) -> None:
-    #     pass
