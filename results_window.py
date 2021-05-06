@@ -20,6 +20,7 @@ class ResultsWindow(h.QWidget):
     def __trim_window_title(self, window_title) -> str:
         """
         # TODO: DOCUMENT ME **
+        #HELLO
         """
         pass
 
