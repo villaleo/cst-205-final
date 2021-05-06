@@ -19,6 +19,7 @@ class ResultsWindow(h.QWidget):
 
     def __search(self, query) -> dict:
         """
+        # TODO: UPDATE THE DOCSTRING **
         Performs the YouTube search using `query` and returns a dictionary containing each
         key-value pair of data sent back.
 
@@ -29,11 +30,18 @@ class ResultsWindow(h.QWidget):
         """
         # TODO: Connect API media search **
 
-        # Sample Image:
-        # "debug/img/i1.jpg"
+        # Source: https://stackoverflow.com/questions/24003043/pyqt4-and-python-3-display-an-image-from-url
+
+        # Current thumbnail image is a sample.
+        image_url = "https://f4.bcbits.com/img/a3122062570_10.jpg"
+        image_data = h.urllib.request.urlopen(image_url).read()
+
+        img = h.PySide6.QtGui.QImage()
+        img.loadFromData(image_data)
+
         return {
             "title": "ThumbnailName",
-            "thumbnail": "debug/img/i1.jpg"
+            "thumbnail": img
         }
 
     def __SearchResultsWindow(self, query, app_name) -> None:
@@ -49,10 +57,12 @@ class ResultsWindow(h.QWidget):
         self.search_button = h.QPushButton("Search")
         self.media_title = h.QLabel(self.__search(query)["title"])
 
-        self.thumbnail_frame = h.QLabel()
-        thumbnail = h.QPixmap(self.__search(query)["thumbnail"])
-        thumbnail = thumbnail.scaled(300, 360, h.Qt.KeepAspectRatio)
-        self.thumbnail_frame.setPixmap(thumbnail)
+        self.media_thumbnail = h.QLabel(self)
+        thumbnail = self.__search(query)["thumbnail"]
+        self.media_thumbnail.setPixmap(
+            h.PySide6.QtGui.QPixmap(thumbnail)
+            .scaled(250, 250, h.Qt.KeepAspectRatio)
+        )
 
         self.appName.setText(f"<h1>{app_name}</h1>")
 
@@ -68,7 +78,7 @@ class ResultsWindow(h.QWidget):
         v1_layout.addLayout(h1_layout)
         v1_layout.addWidget(self.null_space)
         v1_layout.addWidget(self.media_title)
-        v1_layout.addWidget(self.thumbnail_frame)
+        v1_layout.addWidget(self.media_thumbnail)
 
         self.setWindowTitle(self.media_title.text())
         self.setLayout(v1_layout)
