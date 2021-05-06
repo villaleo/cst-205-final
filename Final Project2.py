@@ -10,7 +10,6 @@ from PySide6.QtCore import *
 from PySide6.QtWidgets import *
 
 api_key = 'AIzaSyCrJoYWAYN2QH_kcNFxIPFXd88jGpzSapg'
-
 songsplayed = 0
 songcount = 0
 songlist = []
@@ -67,6 +66,16 @@ def playFirst():
     return media
 
 #Functions to start play/pause
+def incVol():
+    global volume
+    volume = volume + 10
+    media.audio_set_volume(volume)
+
+def decVol():
+    global volume
+    volume = volume - 10
+    media.audio_set_volume(volume)
+
 def addSong():
     getSong()
 
@@ -91,6 +100,8 @@ def playaudio():
 
 def startButton():
     getSong()
+    global volume
+    volume = 50
     media = playFirst()
     media.play()
 
@@ -109,12 +120,16 @@ startbutton = QPushButton("Start")
 pausebutton = QPushButton("Pause")
 nextbutton = QPushButton("Next")
 stopbutton = QPushButton("Stop")
+incbutton = QPushButton("Increase Volume")
+decbutton = QPushButton("Decrease Volume")
 startbutton.clicked.connect(startButton)
 playbutton.clicked.connect(playButton)
 pausebutton.clicked.connect(pButton)
 addsongbutton.clicked.connect(addSong)
 nextbutton.clicked.connect(nextSong)
 stopbutton.clicked.connect(stopSong)
+incbutton.clicked.connect(incVol)
+decbutton.clicked.connect(decVol)
 menu = QMenu()
 l.addWidget(startbutton)
 l.addWidget(playbutton)
@@ -122,5 +137,7 @@ l.addWidget(pausebutton)
 l.addWidget(addsongbutton)
 l.addWidget(nextbutton)
 l.addWidget(stopbutton)
+l.addWidget(incbutton)
+l.addWidget(decbutton)
 w.show()
 app.exec_()
