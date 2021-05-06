@@ -17,6 +17,18 @@ class ResultsWindow(h.QWidget):
         super().__init__()
         self.__SearchResultsWindow(query, app_name)
 
+    def __trim_window_title(self, window_title) -> str:
+        """
+
+        """
+        pass
+
+    def __trim_media_title(self, media_title) -> str:
+        """
+
+        """
+        pass
+
     def __search(self, query) -> dict:
         """
         # TODO: UPDATE THE DOCSTRING **
@@ -40,7 +52,8 @@ class ResultsWindow(h.QWidget):
         img.loadFromData(image_data)
 
         return {
-            "title": "ThumbnailName",
+            # 53 chars:
+            "title": "ABCDEFGHIJKLMNOPQRSTUVWXYZ_ABCDEFGHIJKLMNOPQRSTUVWXYZ",
             "thumbnail": img
         }
 
@@ -54,7 +67,7 @@ class ResultsWindow(h.QWidget):
         self.appName = h.QLabel(self)
         self.null_space = h.QLabel("\t")
         self.media_entry_field = h.QLineEdit(f"{query}")
-        self.search_button = h.QPushButton("Search")
+        self.search_button = h.QPushButton("Queue?")
 
         self.media_title = self.__search(query)["title"]
         self.media_title_label = h.QLabel(self)
@@ -71,11 +84,14 @@ class ResultsWindow(h.QWidget):
 
         self.media_entry_field.setMinimumWidth(350)
         self.media_entry_field.setMaximumWidth(350)
+        self.media_entry_field.selectAll()
 
         h1_layout = h.QHBoxLayout()
         h1_layout.addWidget(self.appName)
+        h1_layout.addWidget(self.null_space)
         h1_layout.addWidget(self.media_entry_field)
         h1_layout.addWidget(self.search_button)
+        h1_layout.addWidget(self.null_space)
 
         v1_layout = h.QVBoxLayout()
         v1_layout.addLayout(h1_layout)
@@ -83,7 +99,7 @@ class ResultsWindow(h.QWidget):
         v1_layout.addWidget(self.media_title_label)
         v1_layout.addWidget(self.media_thumbnail)
 
-        self.setWindowTitle(self.media_title_label.text())
+        self.setWindowTitle(self.media_title)
         self.setLayout(v1_layout)
 
     # def __SearchResultsWindow(self, query, app_name, media_attr) -> None:
