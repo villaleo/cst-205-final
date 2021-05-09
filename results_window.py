@@ -57,8 +57,10 @@ class ResultsWindow(h.QWidget):
         """
         self.appName = h.QLabel(self)
         self.null_space = h.QLabel("\t")
-        self.media_entry_field = h.QLineEdit(f"{query}")
-        self.search_button = h.QPushButton("Queue?")
+        self.media_entry_field = h.QLineEdit(
+            "Enter a query to add to queue..."
+        )
+        self.search_button = h.QPushButton("Queue")
 
         self.media_title = self.__search(query)["title"]
         self.media_title_label = h.QLabel(self)
@@ -84,6 +86,10 @@ class ResultsWindow(h.QWidget):
         h1_layout.addWidget(self.search_button)
         h1_layout.addWidget(self.null_space)
 
+        # TODO: Add play/pause button and a place where queued songs
+        # TODO: will appear. The search bar and button will appened
+        # TODO: songs to the queue!
+
         v1_layout = h.QVBoxLayout()
         v1_layout.addLayout(h1_layout)
         v1_layout.addWidget(self.null_space)
@@ -92,3 +98,7 @@ class ResultsWindow(h.QWidget):
 
         self.setWindowTitle(self.media_title)
         self.setLayout(v1_layout)
+
+        @h.Slot()
+        def __queue_song():
+            pass
