@@ -14,7 +14,7 @@ def trim_string(string: str, length: int) -> str:
     # Sample runs:
     # trim_string("Baby shark", 10) -> "Baby shark"
     # trim_string("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 5) -> "ABCDE..."
-    # trim_string("ABC", -1) -> Error! length must be greater than -1.
+    # trim_string("ABC", -1) -> Error! length must be greater than 0.
 
     pass  # TODO: Implementation goes here. `pass` keyword is used to tell
     # python that this function is not yet written.
