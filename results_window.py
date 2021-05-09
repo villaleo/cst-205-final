@@ -1,4 +1,5 @@
 import header as h
+import trim as t
 
 
 class ResultsWindow(h.QWidget):
@@ -16,19 +17,6 @@ class ResultsWindow(h.QWidget):
     def __init__(self, query, app_name):
         super().__init__()
         self.__SearchResultsWindow(query, app_name)
-
-    def __trim_window_title(self, window_title) -> str:
-        """
-        # TODO: DOCUMENT ME **
-        #HELLO
-        """
-        pass
-
-    def __trim_media_title(self, media_title) -> str:
-        """
-        # TODO: DOCUMENT ME **
-        """
-        pass
 
     def __search(self, query) -> dict:
         """
