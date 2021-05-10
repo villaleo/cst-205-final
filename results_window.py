@@ -60,7 +60,17 @@ class ResultsWindow(h.QWidget):
         self.media_entry_field = h.QLineEdit(
             "Enter a query to add to queue..."
         )
+
         self.search_button = h.QPushButton("Queue")
+        self.play_button = h.QPushButton("▶︎")
+        self.pause_button = h.QPushButton("❙❙")
+        self.next_button = h.QPushButton("▶︎▶︎❙")
+        self.play_button.setMaximumWidth(150)
+        self.play_button.setMinimumWidth(50)
+        self.pause_button.setMaximumWidth(150)
+        self.pause_button.setMinimumWidth(50)
+        self.next_button.setMaximumWidth(150)
+        self.next_button.setMinimumWidth(50)
 
         self.media_title = self.__search(query)["title"]
         self.media_title_label = h.QLabel(self)
@@ -90,14 +100,25 @@ class ResultsWindow(h.QWidget):
         # TODO: will appear. The search bar and button will appened
         # TODO: songs to the queue!
 
-        v1_layout = h.QVBoxLayout()
-        v1_layout.addLayout(h1_layout)
-        v1_layout.addWidget(self.null_space)
-        v1_layout.addWidget(self.media_title_label)
-        v1_layout.addWidget(self.media_thumbnail)
+        # Source: https://stackoverflow.com/questions/41405251/how-can-i-align-a-button-at-the-bottom-right-in-pyqt
+
+        control_layout = h.QHBoxLayout()
+        control_layout.addWidget(
+            self.play_button, alignment=h.Qt.AlignCenter)
+        control_layout.addWidget(
+            self.pause_button, alignment=h.Qt.AlignCenter)
+        control_layout.addWidget(
+            self.next_button, alignment=h.Qt.AlignHCenter)
+
+        main_layout = h.QVBoxLayout()
+        main_layout.addLayout(h1_layout)
+        main_layout.addWidget(self.null_space)
+        main_layout.addWidget(self.media_title_label)
+        main_layout.addWidget(self.media_thumbnail)
+        main_layout.addLayout(control_layout)
 
         self.setWindowTitle(self.media_title)
-        self.setLayout(v1_layout)
+        self.setLayout(main_layout)
 
         @h.Slot()
         def __queue_song():
