@@ -108,7 +108,7 @@ class ResultsWindow(h.QWidget):
         control_layout.addWidget(
             self.pause_button, alignment=h.Qt.AlignCenter)
         control_layout.addWidget(
-            self.next_button, alignment=h.Qt.AlignHCenter)
+            self.next_button, alignment=h.Qt.AlignCenter)
 
         main_layout = h.QVBoxLayout()
         main_layout.addLayout(h1_layout)
