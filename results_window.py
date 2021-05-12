@@ -14,6 +14,8 @@ class ResultsWindow(h.QWidget):
     + `app_name` : The name of the application (to prevent manually changing each instance).
     """
 
+    default_media_entry = "Enter a query to add to queue..."
+
     def __init__(self, query: str, app_name: str):
         super().__init__()
         self.__SearchResultsWindow(query, app_name)
@@ -69,9 +71,7 @@ class ResultsWindow(h.QWidget):
         self.media_thumbnail = h.QLabel(self)
 
         # Text Fields:
-        self.media_entry_field = h.QLineEdit(
-            "Enter a query to add to queue..."
-        )
+        self.media_entry_field = h.QLineEdit(self.default_media_entry)
         self.media_entry_field.setMinimumWidth(350)
         self.media_entry_field.setMaximumWidth(350)
         self.media_entry_field.selectAll()
@@ -148,12 +148,23 @@ class ResultsWindow(h.QWidget):
         self.setWindowTitle(self.media_title)
         self.setLayout(main_layout)
 
+    def __not_default_entry(self, string: str) -> bool:
+        """
+
+        """
+        return string != "" and string != self.default_media_entry
+
     @h.Slot()
-    def __queue_song(self) -> None:
+    def __queue_song(self) -> str:
         """
         TODO: How is the queue implemented in the base-code branch? **
         """
-        print("song queued!")
+        if self.__not_default_entry(self.media_entry_field.text()):
+            print(f"{self.media_entry_field.text()} queued!")
+            return self.media_entry_field.text()
+        else:
+            # Display this message in the window
+            print("Cannot queue an empty query!")
 
     @h.Slot()
     def __play(self) -> None:
@@ -172,6 +183,11 @@ class ResultsWindow(h.QWidget):
     @h.Slot()
     def __skip(self) -> None:
         """
-
+        TODO: How is the queue implemented in the base-code branch? **
         """
-        print("skipping...")
+        next_song = self.media_entry_field.text()
+        if self.__not_default_entry(next_song):
+            print(f"skipping... now playing {next_song}")
+        else:
+            # Display this message in the window
+            print("cannot skip.")
