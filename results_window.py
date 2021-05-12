@@ -54,7 +54,7 @@ class ResultsWindow(h.QWidget):
         + `query` : The user's input which will be sent to YouTube.
         + `app_name` : The name of the application (to prevent manually changing each instance).
         """
-        # Labels
+        # Labels:
         self.appName = h.QLabel(self)
         self.appName.setText(f"<h1>{app_name}</h1>")
 
@@ -68,7 +68,7 @@ class ResultsWindow(h.QWidget):
 
         self.media_thumbnail = h.QLabel(self)
 
-        # Text Fields
+        # Text Fields:
         self.media_entry_field = h.QLineEdit(
             "Enter a query to add to queue..."
         )
@@ -76,7 +76,7 @@ class ResultsWindow(h.QWidget):
         self.media_entry_field.setMaximumWidth(350)
         self.media_entry_field.selectAll()
 
-        # Buttons
+        # Buttons:
         self.search_button = h.QPushButton("Queue")
         self.search_button.setMaximumWidth(70)
         self.search_button.setMinimumWidth(70)
@@ -93,14 +93,14 @@ class ResultsWindow(h.QWidget):
         self.next_button.setMaximumWidth(70)
         self.next_button.setMinimumWidth(70)
 
-        # Thumbnail
+        # Thumbnail:
         thumbnail = self.__search(query)["thumbnail"]
         self.media_thumbnail.setPixmap(
             h.PySide6.QtGui.QPixmap(thumbnail)
             .scaled(250, 250, h.Qt.KeepAspectRatio)
         )
 
-        # Layout: search space
+        # Layout: search space -> layouts:
         search_line_layout = h.QHBoxLayout()
         search_line_layout.addWidget(self.appName)
         search_line_layout.addWidget(self.null_space)
@@ -108,13 +108,13 @@ class ResultsWindow(h.QWidget):
         search_line_layout.addWidget(self.search_button)
         search_line_layout.addWidget(self.null_space)
 
-        # Layout: empty layout
+        # Layout: empty layout -> layouts:
         null_layout = h.QHBoxLayout()
         null_layout.addWidget(self.null_space)
         null_layout.addWidget(self.null_space)
         null_layout.addWidget(self.null_space)
 
-        # Layout: control space
+        # Layout: control space -> layouts:
         # Source: https://stackoverflow.com/questions/41405251/how-can-i-align-a-button-at-the-bottom-right-in-pyqt
         control_layout = h.QHBoxLayout()
         control_layout.addWidget(
@@ -124,13 +124,13 @@ class ResultsWindow(h.QWidget):
         control_layout.addWidget(
             self.next_button, alignment=h.Qt.AlignLeft)
 
-        # Layout: media space
+        # Layout: media space -> layouts:
         media_layout = h.QHBoxLayout()
         media_layout.addWidget(self.media_thumbnail)
         media_layout.addWidget(self.up_next_label)
         # TODO: How is the queue implemented in the base-code branch?
 
-        # Layout: main space
+        # Layout: main space -> layouts:
         main_layout = h.QVBoxLayout()
         main_layout.addLayout(search_line_layout)
         main_layout.addWidget(self.null_space)
@@ -139,7 +139,9 @@ class ResultsWindow(h.QWidget):
         main_layout.addLayout(null_layout)
         main_layout.addLayout(control_layout)
 
-        # Window: attributes
+        # Signal Slot Connection: buttons -> functions:
+
+        # Window: attributes -> window:
         self.setWindowTitle(self.media_title)
         self.setLayout(main_layout)
 
