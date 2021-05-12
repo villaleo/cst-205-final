@@ -60,17 +60,23 @@ class ResultsWindow(h.QWidget):
         self.media_entry_field = h.QLineEdit(
             "Enter a query to add to queue..."
         )
+        self.up_next_label = h.QLabel("Up next:\t\t")
 
         self.search_button = h.QPushButton("Queue")
+        self.search_button.setMaximumWidth(70)
+        self.search_button.setMinimumWidth(70)
+
         self.play_button = h.QPushButton("▶︎")
+        self.play_button.setMaximumWidth(70)
+        self.play_button.setMinimumWidth(70)
+
         self.pause_button = h.QPushButton("❙❙")
+        self.pause_button.setMaximumWidth(70)
+        self.pause_button.setMinimumWidth(70)
+
         self.next_button = h.QPushButton("▶︎▶︎❙")
-        self.play_button.setMaximumWidth(150)
-        self.play_button.setMinimumWidth(50)
-        self.pause_button.setMaximumWidth(150)
-        self.pause_button.setMinimumWidth(50)
-        self.next_button.setMaximumWidth(150)
-        self.next_button.setMinimumWidth(50)
+        self.next_button.setMaximumWidth(70)
+        self.next_button.setMinimumWidth(70)
 
         self.media_title = self.__search(query)["title"]
         self.media_title_label = h.QLabel(self)
@@ -102,19 +108,29 @@ class ResultsWindow(h.QWidget):
 
         # Source: https://stackoverflow.com/questions/41405251/how-can-i-align-a-button-at-the-bottom-right-in-pyqt
 
+        null_layout = h.QHBoxLayout()
+        null_layout.addWidget(self.null_space)
+        null_layout.addWidget(self.null_space)
+        null_layout.addWidget(self.null_space)
+
         control_layout = h.QHBoxLayout()
         control_layout.addWidget(
-            self.play_button, alignment=h.Qt.AlignCenter)
+            self.play_button, alignment=h.Qt.AlignHorizontal_Mask)
         control_layout.addWidget(
-            self.pause_button, alignment=h.Qt.AlignCenter)
+            self.pause_button, alignment=h.Qt.AlignBaseline)
         control_layout.addWidget(
-            self.next_button, alignment=h.Qt.AlignCenter)
+            self.next_button, alignment=h.Qt.AlignLeft)
+
+        media_layout = h.QHBoxLayout()
+        media_layout.addWidget(self.media_thumbnail)
+        # media_layout.addWidget()
 
         main_layout = h.QVBoxLayout()
         main_layout.addLayout(h1_layout)
         main_layout.addWidget(self.null_space)
         main_layout.addWidget(self.media_title_label)
         main_layout.addWidget(self.media_thumbnail)
+        main_layout.addLayout(null_layout)
         main_layout.addLayout(control_layout)
 
         self.setWindowTitle(self.media_title)
