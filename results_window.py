@@ -43,7 +43,6 @@ class ResultsWindow(h.QWidget):
         img.loadFromData(image_data)
 
         return {
-            # NOTE: 53 chars..
             "title": "ABCDEFGHIJKLMNOPQRSTUVWXYZ_ABCDEFGHIJKLMNOPQRSTUVWXYZ",
             "thumbnail": img
         }
@@ -55,13 +54,17 @@ class ResultsWindow(h.QWidget):
         + `query` : The user's input which will be sent to YouTube.
         + `app_name` : The name of the application (to prevent manually changing each instance).
         """
+        # Labels
         self.appName = h.QLabel(self)
         self.null_space = h.QLabel("\t")
+        self.up_next_label = h.QLabel("<h4>Up next:</h4>")
+
+        # Text Fields
         self.media_entry_field = h.QLineEdit(
             "Enter a query to add to queue..."
         )
-        self.up_next_label = h.QLabel("Up next:\t\t")
 
+        # Buttons
         self.search_button = h.QPushButton("Queue")
         self.search_button.setMaximumWidth(70)
         self.search_button.setMinimumWidth(70)
@@ -78,6 +81,7 @@ class ResultsWindow(h.QWidget):
         self.next_button.setMaximumWidth(70)
         self.next_button.setMinimumWidth(70)
 
+        # NOTE: You are here
         self.media_title = self.__search(query)["title"]
         self.media_title_label = h.QLabel(self)
         self.media_title_label.setText(f"<h3>{self.media_title}</h3>")
@@ -136,6 +140,30 @@ class ResultsWindow(h.QWidget):
         self.setWindowTitle(self.media_title)
         self.setLayout(main_layout)
 
-        @h.Slot()
-        def __queue_song():
-            pass
+    @h.Slot()
+    def __queue_song(self) -> None:
+        """
+
+        """
+        pass
+
+    @h.Slot()
+    def __play(self) -> None:
+        """
+
+        """
+        pass
+
+    @h.Slot()
+    def __pause(self) -> None:
+        """
+
+        """
+        pass
+
+    @h.Slot()
+    def __skip(self) -> None:
+        """
+
+        """
+        pass
