@@ -70,6 +70,9 @@ class ResultsWindow(h.QWidget):
 
         self.media_thumbnail = h.QLabel(self)
 
+        self.next_song = h.QLabel(self)
+        # TODO: Set the next_song to appear if queued.
+
         # Text Fields:
         self.media_entry_field = h.QLineEdit(self.default_media_entry)
         self.media_entry_field.setMinimumWidth(350)
@@ -169,14 +172,14 @@ class ResultsWindow(h.QWidget):
     @h.Slot()
     def __play(self) -> None:
         """
-
+        TODO: How is the play implemented in the base-code branch?
         """
         print("play")
 
     @h.Slot()
     def __pause(self) -> None:
         """
-
+        TODO: How is the pause implemented in the base-code branch?
         """
         print("pause")
 
