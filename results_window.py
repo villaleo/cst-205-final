@@ -95,15 +95,14 @@ class ResultsWindow(h.QWidget):
         self.media_entry_field.setMaximumWidth(350)
         self.media_entry_field.selectAll()
 
-        h1_layout = h.QHBoxLayout()
-        h1_layout.addWidget(self.appName)
-        h1_layout.addWidget(self.null_space)
-        h1_layout.addWidget(self.media_entry_field)
-        h1_layout.addWidget(self.search_button)
-        h1_layout.addWidget(self.null_space)
+        search_line_layout = h.QHBoxLayout()
+        search_line_layout.addWidget(self.appName)
+        search_line_layout.addWidget(self.null_space)
+        search_line_layout.addWidget(self.media_entry_field)
+        search_line_layout.addWidget(self.search_button)
+        search_line_layout.addWidget(self.null_space)
 
-        # TODO: Add play/pause button and a place where queued songs
-        # TODO: will appear. The search bar and button will appened
+        # TODO: The search bar and button will appened
         # TODO: songs to the queue!
 
         # Source: https://stackoverflow.com/questions/41405251/how-can-i-align-a-button-at-the-bottom-right-in-pyqt
@@ -123,13 +122,14 @@ class ResultsWindow(h.QWidget):
 
         media_layout = h.QHBoxLayout()
         media_layout.addWidget(self.media_thumbnail)
-        # media_layout.addWidget()
+        media_layout.addWidget(self.up_next_label)
+        # TODO: How is the queue implemented in the base-code branch?
 
         main_layout = h.QVBoxLayout()
-        main_layout.addLayout(h1_layout)
+        main_layout.addLayout(search_line_layout)
         main_layout.addWidget(self.null_space)
         main_layout.addWidget(self.media_title_label)
-        main_layout.addWidget(self.media_thumbnail)
+        main_layout.addLayout(media_layout)
         main_layout.addLayout(null_layout)
         main_layout.addLayout(control_layout)
 
