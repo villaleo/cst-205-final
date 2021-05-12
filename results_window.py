@@ -14,11 +14,11 @@ class ResultsWindow(h.QWidget):
     + `app_name` : The name of the application (to prevent manually changing each instance).
     """
 
-    def __init__(self, query, app_name):
+    def __init__(self, query: str, app_name: str):
         super().__init__()
         self.__SearchResultsWindow(query, app_name)
 
-    def __search(self, query) -> dict:
+    def __search(self, query: str) -> dict:
         """
         # TODO: UPDATE THE DOCSTRING **
 
@@ -47,7 +47,7 @@ class ResultsWindow(h.QWidget):
             "thumbnail": img
         }
 
-    def __SearchResultsWindow(self, query, app_name) -> None:
+    def __SearchResultsWindow(self, query: str, app_name: str) -> None:
         """
         Contains the Qt objects needed to construct the window and its widgets.
 
@@ -128,7 +128,6 @@ class ResultsWindow(h.QWidget):
         media_layout = h.QHBoxLayout()
         media_layout.addWidget(self.media_thumbnail)
         media_layout.addWidget(self.up_next_label)
-        # TODO: How is the queue implemented in the base-code branch?
 
         # Layout: main space -> layouts:
         main_layout = h.QVBoxLayout()
@@ -140,6 +139,10 @@ class ResultsWindow(h.QWidget):
         main_layout.addLayout(control_layout)
 
         # Signal Slot Connection: buttons -> functions:
+        self.search_button.clicked.connect(self.__queue_song)
+        self.play_button.clicked.connect(self.__play)
+        self.pause_button.clicked.connect(self.__pause)
+        self.next_button.clicked.connect(self.__skip)
 
         # Window: attributes -> window:
         self.setWindowTitle(self.media_title)
@@ -148,27 +151,27 @@ class ResultsWindow(h.QWidget):
     @h.Slot()
     def __queue_song(self) -> None:
         """
-
+        TODO: How is the queue implemented in the base-code branch? **
         """
-        pass
+        print("song queued!")
 
     @h.Slot()
     def __play(self) -> None:
         """
 
         """
-        pass
+        print("play")
 
     @h.Slot()
     def __pause(self) -> None:
         """
 
         """
-        pass
+        print("pause")
 
     @h.Slot()
     def __skip(self) -> None:
         """
 
         """
-        pass
+        print("skipping...")
