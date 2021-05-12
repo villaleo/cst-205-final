@@ -172,7 +172,8 @@ class ResultsWindow(h.QWidget):
     @h.Slot()
     def __play(self) -> None:
         """
-        TODO: How is the play implemented in the base-code branch?
+        TODO: How is the play implemented in the base-code branch? **
+        TODO: When is the media playing? Can we pause in this state? **
         """
         print("play")
 
@@ -180,6 +181,8 @@ class ResultsWindow(h.QWidget):
     def __pause(self) -> None:
         """
         TODO: How is the pause implemented in the base-code branch?
+        TODO: How can we unpause? What happens when we pause while already in
+              said state? **
         """
         print("pause")
 
@@ -187,6 +190,8 @@ class ResultsWindow(h.QWidget):
     def __skip(self) -> None:
         """
         TODO: How is the queue implemented in the base-code branch? **
+        TODO: When do we know that there are no songs left to skip to? **
+        TODO: How will all the buttons and thumbnail be updated? **
         """
         next_song = self.media_entry_field.text()
         if self.__not_default_entry(next_song):
