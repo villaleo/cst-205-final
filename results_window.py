@@ -56,13 +56,25 @@ class ResultsWindow(h.QWidget):
         """
         # Labels
         self.appName = h.QLabel(self)
+        self.appName.setText(f"<h1>{app_name}</h1>")
+
         self.null_space = h.QLabel("\t")
+
+        self.media_title_label = h.QLabel(self)
+        self.media_title = self.__search(query)["title"]
+        self.media_title_label.setText(f"<h3>{self.media_title}</h3>")
+
         self.up_next_label = h.QLabel("<h4>Up next:</h4>")
+
+        self.media_thumbnail = h.QLabel(self)
 
         # Text Fields
         self.media_entry_field = h.QLineEdit(
             "Enter a query to add to queue..."
         )
+        self.media_entry_field.setMinimumWidth(350)
+        self.media_entry_field.setMaximumWidth(350)
+        self.media_entry_field.selectAll()
 
         # Buttons
         self.search_button = h.QPushButton("Queue")
@@ -81,24 +93,14 @@ class ResultsWindow(h.QWidget):
         self.next_button.setMaximumWidth(70)
         self.next_button.setMinimumWidth(70)
 
-        # NOTE: You are here
-        self.media_title = self.__search(query)["title"]
-        self.media_title_label = h.QLabel(self)
-        self.media_title_label.setText(f"<h3>{self.media_title}</h3>")
-
-        self.media_thumbnail = h.QLabel(self)
+        # Thumbnail
         thumbnail = self.__search(query)["thumbnail"]
         self.media_thumbnail.setPixmap(
             h.PySide6.QtGui.QPixmap(thumbnail)
             .scaled(250, 250, h.Qt.KeepAspectRatio)
         )
 
-        self.appName.setText(f"<h1>{app_name}</h1>")
-
-        self.media_entry_field.setMinimumWidth(350)
-        self.media_entry_field.setMaximumWidth(350)
-        self.media_entry_field.selectAll()
-
+        # Layout: search space
         search_line_layout = h.QHBoxLayout()
         search_line_layout.addWidget(self.appName)
         search_line_layout.addWidget(self.null_space)
@@ -106,16 +108,14 @@ class ResultsWindow(h.QWidget):
         search_line_layout.addWidget(self.search_button)
         search_line_layout.addWidget(self.null_space)
 
-        # TODO: The search bar and button will appened
-        # TODO: songs to the queue!
-
-        # Source: https://stackoverflow.com/questions/41405251/how-can-i-align-a-button-at-the-bottom-right-in-pyqt
-
+        # Layout: empty layout
         null_layout = h.QHBoxLayout()
         null_layout.addWidget(self.null_space)
         null_layout.addWidget(self.null_space)
         null_layout.addWidget(self.null_space)
 
+        # Layout: control space
+        # Source: https://stackoverflow.com/questions/41405251/how-can-i-align-a-button-at-the-bottom-right-in-pyqt
         control_layout = h.QHBoxLayout()
         control_layout.addWidget(
             self.play_button, alignment=h.Qt.AlignHorizontal_Mask)
@@ -124,11 +124,13 @@ class ResultsWindow(h.QWidget):
         control_layout.addWidget(
             self.next_button, alignment=h.Qt.AlignLeft)
 
+        # Layout: media space
         media_layout = h.QHBoxLayout()
         media_layout.addWidget(self.media_thumbnail)
         media_layout.addWidget(self.up_next_label)
         # TODO: How is the queue implemented in the base-code branch?
 
+        # Layout: main space
         main_layout = h.QVBoxLayout()
         main_layout.addLayout(search_line_layout)
         main_layout.addWidget(self.null_space)
@@ -137,6 +139,7 @@ class ResultsWindow(h.QWidget):
         main_layout.addLayout(null_layout)
         main_layout.addLayout(control_layout)
 
+        # Window: attributes
         self.setWindowTitle(self.media_title)
         self.setLayout(main_layout)
 
