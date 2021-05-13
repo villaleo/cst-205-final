@@ -1,6 +1,8 @@
-import sys, subprocess
+import sys
+import subprocess
 from googleapiclient.discovery import build
-import time, vlc
+import time
+import vlc
 import pafy
 from PIL import Image
 from PIL.ImageQt import ImageQt
@@ -16,30 +18,32 @@ songlist = []
 songurls = []
 songthumbnails = []
 
+
 def getSong():
-    #Search for song via user input
+    # Search for song via user input
     searchq = input("Input song to search for: ")
-    #build api access
-    youtube=build('youtube', 'v3', developerKey=api_key)
+    # build api access
+    youtube = build('youtube', 'v3', developerKey=api_key)
     type(youtube)
 
-    requests = youtube.search().list(q = searchq, part='snippet', type='video', maxResults=1)
+    requests = youtube.search().list(
+        q=searchq, part='snippet', type='video', maxResults=1)
     type(requests)
 
     results = requests.execute()
-    #from results grab video id
+    # from results grab video id
     global videourl
     global thumbnail
     for item in results['items']:
         videourl = (item['id']['videoId'])
         thumbnail = (item['snippet']['thumbnails']['high']['url'])
-    #assign video id to a url
+    # assign video id to a url
     videourl = 'https://www.youtube.com/watch?v=' + videourl
-    #get song title
+    # get song title
     global songcount
     songtr = pafy.new(videourl)
     songtitle = songtr.title
-    #insert title and url into list to grab
+    # insert title and url into list to grab
     songlist.insert(songcount, songtitle)
     songurls.insert(songcount, videourl)
     songthumbnails.insert(songcount, thumbnail)
@@ -47,37 +51,43 @@ def getSong():
     songcount = songcount + 1
     return videourl
 
+
 def playFirst():
-    #Pafy is getting the best audio/video qaulity
+    # Pafy is getting the best audio/video qaulity
     global media
     global songsplayed
     pvideo = pafy.new(songurls[songsplayed])
     songsplayed = songsplayed + 1
     best = pvideo.getbestaudio()
     playurl = best.url
-    #VLC python player playing song
+    # VLC python player playing song
     media = vlc.MediaPlayer(best.url)
-    #enable input
+    # enable input
     media.video_set_key_input(True)
     media.video_set_mouse_input(True)
     print("Now Playing: ", pvideo.title)
-    #return media
-    #media.play()
+    # return media
+    # media.play()
     return media
 
-#Functions to start play/pause
+# Functions to start play/pause
+
+
 def incVol():
     global volume
     volume = volume + 10
     media.audio_set_volume(volume)
+
 
 def decVol():
     global volume
     volume = volume - 10
     media.audio_set_volume(volume)
 
+
 def addSong():
     getSong()
+
 
 def nextSong():
     if songsplayed == songcount:
@@ -88,8 +98,10 @@ def nextSong():
         playFirst()
         media.play()
 
+
 def stopSong():
     media.stop()
+
 
 def playaudio():
     media = songplayer()
@@ -98,6 +110,7 @@ def playaudio():
     while media.is_playing():
         time.sleep(1)
 
+
 def startButton():
     getSong()
     global volume
@@ -105,11 +118,14 @@ def startButton():
     media = playFirst()
     media.play()
 
+
 def playButton():
     media.play()
 
+
 def pButton():
     media.pause()
+
 
 app = QApplication(sys.argv)
 w = QWidget()
