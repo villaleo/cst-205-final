@@ -74,7 +74,8 @@ class ResultsWindow(h.QWidget):
 
         self.next_song = h.QLabel(self)
         self.next_song.setText("TEST")
-        # TODO: Set the next_song to appear if queued.
+        # TODO: Set the next_song label to appear if queued.
+        # NOTE: Label is currently a sample
 
         # Text Fields:
         self.media_entry_field.setMinimumWidth(350)
@@ -123,16 +124,20 @@ class ResultsWindow(h.QWidget):
         # Source: https://stackoverflow.com/questions/41405251/how-can-i-align-a-button-at-the-bottom-right-in-pyqt
         control_layout = h.QHBoxLayout()
         control_layout.addWidget(
-            self.play_button, alignment=h.Qt.AlignHorizontal_Mask)
+            self.pause_button, alignment=h.Qt.AlignHorizontal_Mask)
         control_layout.addWidget(
-            self.pause_button, alignment=h.Qt.AlignBaseline)
+            self.play_button, alignment=h.Qt.AlignBaseline)
         control_layout.addWidget(
             self.next_button, alignment=h.Qt.AlignLeft)
 
         # Layout: queue space -> layouts:
         queue_layout = h.QVBoxLayout()
+        queue_layout.addWidget(self.null_space)
         queue_layout.addWidget(self.up_next_label)
         queue_layout.addWidget(self.next_song)
+        queue_layout.addWidget(self.null_space)
+        queue_layout.addWidget(self.null_space)
+        queue_layout.addWidget(self.null_space)
 
         # Layout: media space -> layouts:
         media_layout = h.QHBoxLayout()
