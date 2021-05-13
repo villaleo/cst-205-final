@@ -11,10 +11,24 @@ def trim_string(string: str, length: int) -> str:
     + `string` : the string which is passed in for trimming.
     + `length` : the size which the string will be trimmed to.
     """
-    # Sample runs:
-    # trim_string("Baby shark", 10) -> "Baby shark"
-    # trim_string("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 5) -> "ABCDE..."
-    # trim_string("ABC", -1) -> Error! length must be greater than 0.
 
-    pass  # TODO: Implementation goes here. `pass` keyword is used to tell
-    # python that this function is not yet written.
+    if length == len(string):
+        return string
+    elif length > 0:
+        if length > len(string):
+            return "Length too long"
+        
+        string = string[:length] + "..."
+        return string
+    
+    else:
+        return "Length too short"
+
+
+
+
+print(trim_string("Baby shark", 10))
+print(trim_string("ABCDEFGHIJKLMNOPQRSTUVWXYZ", 5))
+print(trim_string("ABC", -1))
+print(trim_string("A", 2))
+    
