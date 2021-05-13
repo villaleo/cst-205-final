@@ -19,29 +19,41 @@ class HomeWindow(h.QWidget):
         """
         Contains the Qt objects needed to construct the window and its widgets.
         """
+        # Labels:
         self.appName = h.QLabel(self)
-        self.null_space = h.QLabel("\t")
-        self.media_entry_field = h.QLineEdit("Enter a query")
-        self.search_button = h.QPushButton("Search")
-
         # TODO: Option to create an app logo once we figure out everything else.
         # This is currently at the lowest of priority.
         self.appName.setText(f"<h1>{self.app_name}</h1>")
+
+        self.null_space = h.QLabel("\t")
+
+        self.authors_label = h.QLabel(self)
+        self.authors_label.setText(
+            "<p style=\"font-size:10px\">" + h.author_names + "</p>")
+
+        # Text Fields:
+        self.media_entry_field = h.QLineEdit("Enter a query")
         self.media_entry_field.setMinimumWidth(350)
         self.media_entry_field.setMaximumWidth(350)
         self.media_entry_field.selectAll()
 
-        v1_layout = h.QVBoxLayout()
-        v1_layout.addWidget(self.appName)
+        # Buttons:
+        self.search_button = h.QPushButton("Search")
 
+        # Layouts:
         h1_layout = h.QHBoxLayout()
         h1_layout.addWidget(self.null_space)
         h1_layout.addWidget(self.media_entry_field)
         h1_layout.addWidget(self.search_button)
 
+        v1_layout = h.QVBoxLayout()
+        v1_layout.addWidget(self.appName)
+        v1_layout.addLayout(h1_layout)
+        v1_layout.addWidget(self.authors_label, alignment=h.Qt.AlignRight)
+
         v1_layout.addLayout(h1_layout)
 
-        # TODO: Add our names on the bottom of the window.
+        # TODO: If query is empty or default, then display error.
 
         self.search_button.clicked.connect(self.get_results)
         self.setLayout(v1_layout)

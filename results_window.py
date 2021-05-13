@@ -15,9 +15,11 @@ class ResultsWindow(h.QWidget):
     """
 
     default_media_entry = "Enter a query to add to queue..."
+    media_entry_field: h.QLineEdit
 
     def __init__(self, query: str, app_name: str):
         super().__init__()
+        self.media_entry_field = h.QLineEdit(self.default_media_entry)
         self.__SearchResultsWindow(query, app_name)
 
     def __search(self, query: str) -> dict:
@@ -71,10 +73,11 @@ class ResultsWindow(h.QWidget):
         self.media_thumbnail = h.QLabel(self)
 
         self.next_song = h.QLabel(self)
-        # TODO: Set the next_song to appear if queued.
+        self.next_song.setText("TEST")
+        # TODO: Set the next_song label to appear if queued.
+        # NOTE: Label is currently a sample
 
         # Text Fields:
-        self.media_entry_field = h.QLineEdit(self.default_media_entry)
         self.media_entry_field.setMinimumWidth(350)
         self.media_entry_field.setMaximumWidth(350)
         self.media_entry_field.selectAll()
@@ -112,33 +115,43 @@ class ResultsWindow(h.QWidget):
         search_line_layout.addWidget(self.null_space)
 
         # Layout: empty layout -> layouts:
-        null_layout = h.QHBoxLayout()
-        null_layout.addWidget(self.null_space)
-        null_layout.addWidget(self.null_space)
-        null_layout.addWidget(self.null_space)
+        H_null_layout = h.QHBoxLayout()
+        H_null_layout.addWidget(self.null_space)
+        H_null_layout.addWidget(self.null_space)
+        H_null_layout.addWidget(self.null_space)
 
         # Layout: control space -> layouts:
         # Source: https://stackoverflow.com/questions/41405251/how-can-i-align-a-button-at-the-bottom-right-in-pyqt
         control_layout = h.QHBoxLayout()
         control_layout.addWidget(
-            self.play_button, alignment=h.Qt.AlignHorizontal_Mask)
+            self.pause_button, alignment=h.Qt.AlignHorizontal_Mask)
         control_layout.addWidget(
-            self.pause_button, alignment=h.Qt.AlignBaseline)
+            self.play_button, alignment=h.Qt.AlignBaseline)
         control_layout.addWidget(
             self.next_button, alignment=h.Qt.AlignLeft)
+
+        # Layout: queue space -> layouts:
+        queue_layout = h.QVBoxLayout()
+        queue_layout.addWidget(self.null_space)
+        queue_layout.addWidget(self.up_next_label)
+        queue_layout.addWidget(self.next_song)
+        queue_layout.addWidget(self.null_space)
+        queue_layout.addWidget(self.null_space)
+        queue_layout.addWidget(self.null_space)
 
         # Layout: media space -> layouts:
         media_layout = h.QHBoxLayout()
         media_layout.addWidget(self.media_thumbnail)
-        media_layout.addWidget(self.up_next_label)
+        media_layout.addLayout(queue_layout)
 
         # Layout: main space -> layouts:
         main_layout = h.QVBoxLayout()
         main_layout.addLayout(search_line_layout)
+
         main_layout.addWidget(self.null_space)
         main_layout.addWidget(self.media_title_label)
         main_layout.addLayout(media_layout)
-        main_layout.addLayout(null_layout)
+        main_layout.addLayout(H_null_layout)
         main_layout.addLayout(control_layout)
 
         # Signal Slot Connection: buttons -> functions:
@@ -161,6 +174,8 @@ class ResultsWindow(h.QWidget):
     def __queue_song(self) -> str:
         """
         TODO: How is the queue implemented in the base-code branch? **
+        TODO: There is currently no 'queue'. The media that is played is whatever
+              is in the search field at the time. **
         """
         if self.__not_default_entry(self.media_entry_field.text()):
             print(f"{self.media_entry_field.text()} queued!")
