@@ -1,5 +1,6 @@
 import header as h
 import results_window as result
+import error_window as e
 
 
 class HomeWindow(h.QWidget):
@@ -8,8 +9,8 @@ class HomeWindow(h.QWidget):
     find a corresponding match.
     """
 
-    # TODO: Name for application.
-    app_name = "AppName"
+    app_name = "BeatFetch"
+    default_message = "Enter a query"
 
     def __init__(self):
         super().__init__()
@@ -21,8 +22,6 @@ class HomeWindow(h.QWidget):
         """
         # Labels:
         self.appName = h.QLabel(self)
-        # TODO: Option to create an app logo once we figure out everything else.
-        # This is currently at the lowest of priority.
         self.appName.setText(f"<h1>{self.app_name}</h1>")
 
         self.null_space = h.QLabel("\t")
@@ -31,8 +30,10 @@ class HomeWindow(h.QWidget):
         self.authors_label.setText(
             "<p style=\"font-size:10px\">" + h.author_names + "</p>")
 
+        self.error_message = h.QLabel("<b>Invalid query!</b>")
+
         # Text Fields:
-        self.media_entry_field = h.QLineEdit("Enter a query")
+        self.media_entry_field = h.QLineEdit(self.default_message)
         self.media_entry_field.setMinimumWidth(350)
         self.media_entry_field.setMaximumWidth(350)
         self.media_entry_field.selectAll()
@@ -49,11 +50,10 @@ class HomeWindow(h.QWidget):
         v1_layout = h.QVBoxLayout()
         v1_layout.addWidget(self.appName)
         v1_layout.addLayout(h1_layout)
+
         v1_layout.addWidget(self.authors_label, alignment=h.Qt.AlignRight)
 
         v1_layout.addLayout(h1_layout)
-
-        # TODO: If query is empty or default, then display error.
 
         self.search_button.clicked.connect(self.get_results)
         self.setLayout(v1_layout)
@@ -61,9 +61,15 @@ class HomeWindow(h.QWidget):
     @h.Slot()
     def get_results(self) -> None:
         """
-        Close the main window and opens a new window, containing the search results.
+        Close the main window and open a new window, containing the search results.
+        If the query is invalid, then an error is displayed.
         """
-        self.close()
         query = self.media_entry_field.text()
-        self.results = result.ResultsWindow(query, self.app_name)
-        self.results.show()
+
+        if query != "" and query != self.default_message:
+            self.close()
+            self.results = result.ResultsWindow(query, self.app_name)
+            self.results.show()
+        else:
+            self.error_win = e.ErrorWindow()
+            self.error_win.show()
