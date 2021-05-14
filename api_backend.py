@@ -5,17 +5,14 @@ songcount = 0
 songlist = []
 songurls = []
 songthumbnails = []
+searchq = ""
 
 
-def getSong():
-    # Search for song via user input
-    searchq = input("Input song to search for: ")
+def getSong() -> dict:
     # build api access
     youtube = h.build('youtube', 'v3', developerKey=h.api_key)
-    # NOTE: UNUSED -> type(youtube)
     requests = youtube.search().list(
         q=searchq, part='snippet', type='video', maxResults=1)
-    # NOTE: UNUSED -> type(requests)
 
     results = requests.execute()
     # from results grab video id
@@ -35,8 +32,13 @@ def getSong():
     songurls.insert(songcount, videourl)
     songthumbnails.insert(songcount, thumbnail)
     print(songlist[songcount], ", has been Added!")
+    print(songcount)
     songcount = songcount + 1
-    return videourl
+    return {
+        'url': videourl,
+        'title': songtitle,
+        'thumbnail': thumbnail
+    }
 
 
 def playFirst():
@@ -118,35 +120,3 @@ def playButton():
 
 def pButton():
     media.pause()
-
-
-app = h.QApplication(h.sys.argv)
-w = h.QWidget()
-l = h.QVBoxLayout(w)
-addsongbutton = h.QPushButton("Add Song")
-playbutton = h.QPushButton("Play")
-startbutton = h.QPushButton("Start")
-pausebutton = h.QPushButton("Pause")
-nextbutton = h.QPushButton("Next")
-stopbutton = h.QPushButton("Stop")
-incbutton = h.QPushButton("Increase Volume")
-decbutton = h.QPushButton("Decrease Volume")
-startbutton.clicked.connect(startButton)
-playbutton.clicked.connect(playButton)
-pausebutton.clicked.connect(pButton)
-addsongbutton.clicked.connect(addSong)
-nextbutton.clicked.connect(nextSong)
-stopbutton.clicked.connect(stopSong)
-incbutton.clicked.connect(incVol)
-decbutton.clicked.connect(decVol)
-menu = h.QMenu()
-l.addWidget(startbutton)
-l.addWidget(playbutton)
-l.addWidget(pausebutton)
-l.addWidget(addsongbutton)
-l.addWidget(nextbutton)
-l.addWidget(stopbutton)
-l.addWidget(incbutton)
-l.addWidget(decbutton)
-w.show()
-app.exec_()
