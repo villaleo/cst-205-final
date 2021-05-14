@@ -3,7 +3,7 @@ import PySide6.QtGui
 import urllib.request
 from PySide6.QtWidgets import (
     QApplication, QWidget, QLabel, QPushButton,
-    QLineEdit, QHBoxLayout, QVBoxLayout
+    QLineEdit, QHBoxLayout, QVBoxLayout, QMenu
 )
 from PySide6.QtGui import QPixmap
 from PySide6.QtGui import QImage
@@ -24,3 +24,4 @@ from PySide6.QtCore import *
 from PySide6.QtWidgets import *
 
 author_names = "Leonardo Villalobos, Luz Violeta Robles, Austin Seidel"
+api_key = 'AIzaSyCrJoYWAYN2QH_kcNFxIPFXd88jGpzSapg'

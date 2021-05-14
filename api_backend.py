@@ -1,17 +1,5 @@
-import sys
-import subprocess
-from googleapiclient.discovery import build
-import time
-import vlc
-import pafy
-from PIL import Image
-from PIL.ImageQt import ImageQt
-from requests import *
-from PySide6.QtGui import *
-from PySide6.QtCore import *
-from PySide6.QtWidgets import *
+import header as h
 
-api_key = 'AIzaSyCrJoYWAYN2QH_kcNFxIPFXd88jGpzSapg'
 songsplayed = 0
 songcount = 0
 songlist = []
@@ -23,12 +11,11 @@ def getSong():
     # Search for song via user input
     searchq = input("Input song to search for: ")
     # build api access
-    youtube = build('youtube', 'v3', developerKey=api_key)
-    type(youtube)
-
+    youtube = h.build('youtube', 'v3', developerKey=h.api_key)
+    # NOTE: UNUSED -> type(youtube)
     requests = youtube.search().list(
         q=searchq, part='snippet', type='video', maxResults=1)
-    type(requests)
+    # NOTE: UNUSED -> type(requests)
 
     results = requests.execute()
     # from results grab video id
@@ -41,13 +28,13 @@ def getSong():
     videourl = 'https://www.youtube.com/watch?v=' + videourl
     # get song title
     global songcount
-    songtr = pafy.new(videourl)
+    songtr = h.pafy.new(videourl)
     songtitle = songtr.title
     # insert title and url into list to grab
     songlist.insert(songcount, songtitle)
     songurls.insert(songcount, videourl)
     songthumbnails.insert(songcount, thumbnail)
-    print(songlist[songcount], ", Has been Added!")
+    print(songlist[songcount], ", has been Added!")
     songcount = songcount + 1
     return videourl
 
@@ -56,12 +43,12 @@ def playFirst():
     # Pafy is getting the best audio/video qaulity
     global media
     global songsplayed
-    pvideo = pafy.new(songurls[songsplayed])
+    pvideo = h.pafy.new(songurls[songsplayed])
     songsplayed = songsplayed + 1
     best = pvideo.getbestaudio()
     playurl = best.url
     # VLC python player playing song
-    media = vlc.MediaPlayer(best.url)
+    media = h.vlc.MediaPlayer(best.url)
     # enable input
     media.video_set_key_input(True)
     media.video_set_mouse_input(True)
@@ -86,6 +73,12 @@ def decVol():
 
 
 def addSong():
+    # NOTE: Debugging:
+    print(f"songslist: {songlist}")
+    print(f"songs played: {songsplayed}")
+    print(f"song count: {songcount}")
+    print(f"song urls: {songurls}")
+    print(f"song thumbnails: {songthumbnails}")
     getSong()
 
 
@@ -102,13 +95,13 @@ def nextSong():
 def stopSong():
     media.stop()
 
-
-def playaudio():
-    media = songplayer()
-    media.play()
-    time.sleep(5)
-    while media.is_playing():
-        time.sleep(1)
+# NOTE: Unused code:
+# def playaudio():
+#     media = songplayer()
+#     media.play()
+#     h.time.sleep(5)
+#     while media.is_playing():
+#         h.time.sleep(1)
 
 
 def startButton():
@@ -127,17 +120,17 @@ def pButton():
     media.pause()
 
 
-app = QApplication(sys.argv)
-w = QWidget()
-l = QVBoxLayout(w)
-addsongbutton = QPushButton("Add Song")
-playbutton = QPushButton("Play")
-startbutton = QPushButton("Start")
-pausebutton = QPushButton("Pause")
-nextbutton = QPushButton("Next")
-stopbutton = QPushButton("Stop")
-incbutton = QPushButton("Increase Volume")
-decbutton = QPushButton("Decrease Volume")
+app = h.QApplication(h.sys.argv)
+w = h.QWidget()
+l = h.QVBoxLayout(w)
+addsongbutton = h.QPushButton("Add Song")
+playbutton = h.QPushButton("Play")
+startbutton = h.QPushButton("Start")
+pausebutton = h.QPushButton("Pause")
+nextbutton = h.QPushButton("Next")
+stopbutton = h.QPushButton("Stop")
+incbutton = h.QPushButton("Increase Volume")
+decbutton = h.QPushButton("Decrease Volume")
 startbutton.clicked.connect(startButton)
 playbutton.clicked.connect(playButton)
 pausebutton.clicked.connect(pButton)
@@ -146,7 +139,7 @@ nextbutton.clicked.connect(nextSong)
 stopbutton.clicked.connect(stopSong)
 incbutton.clicked.connect(incVol)
 decbutton.clicked.connect(decVol)
-menu = QMenu()
+menu = h.QMenu()
 l.addWidget(startbutton)
 l.addWidget(playbutton)
 l.addWidget(pausebutton)
