@@ -1,5 +1,27 @@
 import header as h
+import api_backend as yt
 import trim as t
+
+
+def call_getSong(query: str) -> dict:
+    """
+    Calls the `getSong()` function from the api_backend.py file.
+    Returns a `dict` with the `title` and `thumbnail` of `query`.
+
+    + `query` : The user's input which will be sent to YouTube.
+    """
+    yt.searchq = query
+
+    image_url = yt.getSong()['thumbnail']
+    image_data = h.urllib.request.urlopen(image_url).read()
+
+    img = h.PySide6.QtGui.QImage()
+    img.loadFromData(image_data)
+
+    return {
+        "title": yt.getSong()['title'],
+        "thumbnail": img
+    }
 
 
 class ResultsWindow(h.QWidget):
@@ -16,40 +38,27 @@ class ResultsWindow(h.QWidget):
 
     default_media_entry = "Enter a query to add to queue..."
     media_entry_field: h.QLineEdit
+    current_media_values: dict
 
     def __init__(self, query: str, app_name: str):
         super().__init__()
         self.media_entry_field = h.QLineEdit(self.default_media_entry)
+        self.current_media_values = call_getSong(query)
         self.__SearchResultsWindow(query, app_name)
 
-    def __search(self, query: str) -> dict:
+    def __search(self, query: str, call_func=False) -> dict:
         """
-        # TODO: UPDATE THE DOCSTRING **
-
-        Performs the YouTube search using `query` and returns a dictionary containing each
-        key-value pair of data sent back.
-
-        Returns a dictionary object containing `"title"`, the name of the video title and 
-        `"thumbnail"`, the path to the image file.
+        Calls the `getSong()` function only if `call_func` is `True`.
+        Returns a `dict` with the `title` and `thumbnail` of `query`.
 
         + `query` : The user's input which will be sent to YouTube.
+        + `call_func` : Option to call `getSong()`. `False` by default. 
         """
+        out = self.current_media_values
 
-        # TODO: Connect API media search **
-
-        # Source: https://stackoverflow.com/questions/24003043/pyqt4-and-python-3-display-an-image-from-url
-
-        # NOTE: Current thumbnail image is a sample.
-        image_url = "https://f4.bcbits.com/img/a3122062570_10.jpg"
-        image_data = h.urllib.request.urlopen(image_url).read()
-
-        img = h.PySide6.QtGui.QImage()
-        img.loadFromData(image_data)
-
-        return {
-            "title": "ABCDEFGHIJKLMNOPQRSTUVWXYZ_ABCDEFGHIJKLMNOPQRSTUVWXYZ",
-            "thumbnail": img
-        }
+        if call_func:
+            out = call_getSong(query)
+        return out
 
     def __SearchResultsWindow(self, query: str, app_name: str) -> None:
         """
