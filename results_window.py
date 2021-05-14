@@ -39,6 +39,7 @@ class ResultsWindow(h.QWidget):
     default_media_entry = "Enter a query to add to queue..."
     media_entry_field: h.QLineEdit
     current_media_values: dict
+    song: None
 
     def __init__(self, query: str, app_name: str):
         super().__init__()
@@ -169,6 +170,10 @@ class ResultsWindow(h.QWidget):
         self.pause_button.clicked.connect(self.__pause)
         self.next_button.clicked.connect(self.__skip)
 
+        # Play the music automatically when window loads:
+        self.song = yt.playFirst()
+        self.__play()
+
         # Window: attributes -> window:
         self.setWindowTitle(self.media_title)
         self.setLayout(main_layout)
@@ -196,19 +201,18 @@ class ResultsWindow(h.QWidget):
     @h.Slot()
     def __play(self) -> None:
         """
-        TODO: How is the play implemented in the base-code branch? **
-        TODO: When is the media playing? Can we pause in this state? **
+        Plays the current song.
         """
-        print("play")
+        self.song.play()
+        print("playing.")
 
     @h.Slot()
     def __pause(self) -> None:
         """
-        TODO: How is the pause implemented in the base-code branch?
-        TODO: How can we unpause? What happens when we pause while already in
-              said state? **
+        Pauses the current song.
         """
-        print("pause")
+        self.song.pause()
+        print("paused.")
 
     @h.Slot()
     def __skip(self) -> None:
