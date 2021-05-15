@@ -24,4 +24,5 @@ from PySide6.QtCore import *
 from PySide6.QtWidgets import *
 
 author_names = "Leonardo Villalobos, Luz Violeta Robles, Austin Seidel"
-api_key = 'AIzaSyCrJoYWAYN2QH_kcNFxIPFXd88jGpzSapg'
+# api_key = 'AIzaSyCrJoYWAYN2QH_kcNFxIPFXd88jGpzSapg'
+api_key = 'AIzaSyCKAu3TpYJahOHnYmvr_be9-cK-KbGN4C4'
