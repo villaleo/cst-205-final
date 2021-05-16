@@ -77,7 +77,7 @@ class ResultsWindow(h.QWidget):
         self.null_space = h.QLabel("\t")
 
         self.media_title_label = h.QLabel(self)
-        self.media_title = self.__search(query)["title"]
+        self.media_title = t.trim_string(self.__search(query)["title"], 40)
         self.media_title_label.setText(f"<h3>{self.media_title}</h3>")
 
         self.up_next_label = h.QLabel("<h4>Up next:</h4>")
@@ -86,6 +86,10 @@ class ResultsWindow(h.QWidget):
 
         self.next_song = h.QLabel(self)
         self.next_song.setText("Queue is empty.")
+
+        self.devs_label = h.QLabel(self)
+        self.devs_label.setText(
+            "<p style=\"font-size:10px\">" + "Developed by " + h.dev_names + "</p>")
 
         # Text Fields:
         self.media_entry_field.setMinimumWidth(350)
@@ -157,6 +161,7 @@ class ResultsWindow(h.QWidget):
         main_layout.addLayout(media_layout)
         main_layout.addLayout(H_null_layout)
         main_layout.addLayout(control_layout)
+        main_layout.addWidget(self.devs_label, alignment=h.Qt.AlignRight)
 
         # Signal Slot Connection:
         self.search_button.clicked.connect(self.__queue_song)
@@ -189,7 +194,7 @@ class ResultsWindow(h.QWidget):
             new_values = call_getSong(
                 self.media_entry_field.text())
             new_thumbnail = new_values['thumbnail']
-            new_title = new_values['title']
+            new_title = t.trim_string(new_values['title'], 40)
             self.next_song.setText(new_title)
         else:
             # TODO: Display this message in the window
@@ -219,6 +224,9 @@ class ResultsWindow(h.QWidget):
         next_up = self.media_entry_field.text()
         if self.__not_default_entry(next_up):
             yt.nextSong()
+            self.media_title_label.setText(
+                f"<h3>{t.trim_string(new_title, 40)}</h3>")
+            self.setWindowTitle(t.trim_string(new_title, 40))
             if yt.queueIsEmpty():
                 self.next_song.setText("Queue is empty.")
             else:
