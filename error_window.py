@@ -5,17 +5,19 @@ class ErrorWindow(h.QWidget):
     """
     Create an error window.
     """
+    error_msg = ""
 
-    def __init__(self):
+    def __init__(self, error_msg: str):
         super().__init__()
-        self.__show_error_window()
+        self.error_msg = error_msg
+        self.__show_error_window(self.error_msg)
 
-    def __show_error_window(self) -> None:
+    def __show_error_window(self, error_msg: str) -> None:
         """
         Displays the window.
         """
         # Labels:
-        self.error_label = h.QLabel("Invalid query!")
+        self.error_label = h.QLabel(error_msg)
 
         self.null_space = h.QLabel("\t\t")
 
