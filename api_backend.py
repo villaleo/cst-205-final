@@ -68,28 +68,6 @@ def playFirst():
     return media
 
 
-def incVol():
-    global volume
-    volume = volume + 10
-    media.audio_set_volume(volume)
-
-
-def decVol():
-    global volume
-    volume = volume - 10
-    media.audio_set_volume(volume)
-
-
-def addSong():
-    # NOTE: Debugging:
-    print(f"songslist: {songlist}")
-    print(f"songs played: {songsplayed}")
-    print(f"song count: {songcount}")
-    print(f"song urls: {songurls}")
-    print(f"song thumbnails: {songthumbnails}")
-    getSong()
-
-
 def queueIsEmpty():
     return songsplayed == songcount
 
@@ -103,23 +81,3 @@ def nextSong():
         media.stop()
         playFirst()
         media.play()
-
-
-def stopSong():
-    media.stop()
-
-
-def startButton():
-    getSong()
-    global volume
-    volume = 50
-    media = playFirst()
-    media.play()
-
-
-def playButton():
-    media.play()
-
-
-def pButton():
-    media.pause()
