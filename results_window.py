@@ -1,5 +1,6 @@
 import header as h
 import api_backend as yt
+import error_window as e
 import trim as t
 
 # TODO: Review Documentation
@@ -197,8 +198,9 @@ class ResultsWindow(h.QWidget):
             new_title = t.trim_string(new_values['title'], 40)
             self.next_song.setText(new_title)
         else:
-            # TODO: Display this message in the window
-            print("Cannot queue an empty query!")
+            self.empty_queue_error_win = e.ErrorWindow(
+                "Cannot queue an empty query!")
+            self.empty_queue_error_win.show()
 
     @h.Slot()
     def __play(self) -> None:
@@ -238,5 +240,4 @@ class ResultsWindow(h.QWidget):
                 .scaled(250, 250, h.Qt.KeepAspectRatio)
             )
         else:
-            # TODO: Display this message in the window
             print("cannot skip.")
