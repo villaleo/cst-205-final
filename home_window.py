@@ -26,9 +26,9 @@ class HomeWindow(h.QWidget):
 
         self.null_space = h.QLabel("\t")
 
-        self.authors_label = h.QLabel(self)
-        self.authors_label.setText(
-            "<p style=\"font-size:10px\">" + h.author_names + "</p>")
+        self.devs_label = h.QLabel(self)
+        self.devs_label.setText(
+            "<p style=\"font-size:10px\">" + "Developed by " + h.dev_names + "</p>")
 
         self.error_message = h.QLabel("<b>Invalid query!</b>")
 
@@ -51,7 +51,7 @@ class HomeWindow(h.QWidget):
         v1_layout.addWidget(self.appName)
         v1_layout.addLayout(h1_layout)
 
-        v1_layout.addWidget(self.authors_label, alignment=h.Qt.AlignRight)
+        v1_layout.addWidget(self.devs_label, alignment=h.Qt.AlignRight)
 
         v1_layout.addLayout(h1_layout)
 
