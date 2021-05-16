@@ -8,7 +8,7 @@ songthumbnails = []
 searchq = ""
 
 
-def getSong() -> dict:
+def getSong(add_song=False) -> dict:
     # build api access
     youtube = h.build('youtube', 'v3', developerKey=h.api_key)
     requests = youtube.search().list(
@@ -32,13 +32,14 @@ def getSong() -> dict:
     songtitle = songtr.title
 
     # insert title and url into list to grab
-    songlist.insert(songcount, songtitle)
-    songurls.insert(songcount, videourl)
-    songthumbnails.insert(songcount, thumbnail)
+    if add_song:
+        songlist.insert(songcount, songtitle)
+        songurls.insert(songcount, videourl)
+        songthumbnails.insert(songcount, thumbnail)
+        print(songlist[songcount], ", has been Added!")
 
-    print(songlist[songcount], ", has been Added!")
-    print(songcount)
-    songcount = songcount + 1
+        print(songcount)
+        songcount = songcount + 1
 
     return {
         'url': videourl,
@@ -89,10 +90,15 @@ def addSong():
     getSong()
 
 
+def queueIsEmpty():
+    return songsplayed == songcount
+
+
 def nextSong():
-    if songsplayed == songcount:
+    if queueIsEmpty():
         media.stop()
         print('No more tracks have been added, please add another.')
+        return False
     else:
         media.stop()
         playFirst()
