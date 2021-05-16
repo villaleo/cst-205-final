@@ -71,5 +71,5 @@ class HomeWindow(h.QWidget):
             self.results = result.ResultsWindow(query, self.app_name)
             self.results.show()
         else:
-            self.error_win = e.ErrorWindow()
+            self.error_win = e.ErrorWindow("Invalid query!")
             self.error_win.show()
