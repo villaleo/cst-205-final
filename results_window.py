@@ -2,8 +2,10 @@ import header as h
 import api_backend as yt
 import trim as t
 
+# TODO: Review Documentation
 
-def call_getSong(query: str) -> dict:
+
+def call_getSong(query: str, add_song=False) -> dict:
     """
     Calls the `getSong()` function from the api_backend.py file.
     Returns a `dict` with the `title` and `thumbnail` of `query`.
@@ -19,7 +21,7 @@ def call_getSong(query: str) -> dict:
     img.loadFromData(image_data)
 
     return {
-        "title": yt.getSong()['title'],
+        "title": yt.getSong(True)['title'],
         "thumbnail": img
     }
 
@@ -83,9 +85,7 @@ class ResultsWindow(h.QWidget):
         self.media_thumbnail = h.QLabel(self)
 
         self.next_song = h.QLabel(self)
-        self.next_song.setText("TEST")
-        # TODO: Set the next_song label to appear if queued.
-        # NOTE: Label is currently a sample
+        self.next_song.setText("Queue is empty.")
 
         # Text Fields:
         self.media_entry_field.setMinimumWidth(350)
@@ -116,7 +116,7 @@ class ResultsWindow(h.QWidget):
             .scaled(250, 250, h.Qt.KeepAspectRatio)
         )
 
-        # Layout: search space -> layouts:
+        # Layouts:
         search_line_layout = h.QHBoxLayout()
         search_line_layout.addWidget(self.appName)
         search_line_layout.addWidget(self.null_space)
@@ -124,14 +124,11 @@ class ResultsWindow(h.QWidget):
         search_line_layout.addWidget(self.search_button)
         search_line_layout.addWidget(self.null_space)
 
-        # Layout: empty layout -> layouts:
         H_null_layout = h.QHBoxLayout()
         H_null_layout.addWidget(self.null_space)
         H_null_layout.addWidget(self.null_space)
         H_null_layout.addWidget(self.null_space)
 
-        # Layout: control space -> layouts:
-        # Source: https://stackoverflow.com/questions/41405251/how-can-i-align-a-button-at-the-bottom-right-in-pyqt
         control_layout = h.QHBoxLayout()
         control_layout.addWidget(
             self.pause_button, alignment=h.Qt.AlignHorizontal_Mask)
@@ -140,7 +137,6 @@ class ResultsWindow(h.QWidget):
         control_layout.addWidget(
             self.next_button, alignment=h.Qt.AlignLeft)
 
-        # Layout: queue space -> layouts:
         queue_layout = h.QVBoxLayout()
         queue_layout.addWidget(self.null_space)
         queue_layout.addWidget(self.up_next_label)
@@ -149,12 +145,10 @@ class ResultsWindow(h.QWidget):
         queue_layout.addWidget(self.null_space)
         queue_layout.addWidget(self.null_space)
 
-        # Layout: media space -> layouts:
         media_layout = h.QHBoxLayout()
         media_layout.addWidget(self.media_thumbnail)
         media_layout.addLayout(queue_layout)
 
-        # Layout: main space -> layouts:
         main_layout = h.QVBoxLayout()
         main_layout.addLayout(search_line_layout)
 
@@ -164,38 +158,41 @@ class ResultsWindow(h.QWidget):
         main_layout.addLayout(H_null_layout)
         main_layout.addLayout(control_layout)
 
-        # Signal Slot Connection: buttons -> functions:
+        # Signal Slot Connection:
         self.search_button.clicked.connect(self.__queue_song)
         self.play_button.clicked.connect(self.__play)
         self.pause_button.clicked.connect(self.__pause)
         self.next_button.clicked.connect(self.__skip)
 
-        # Play the music automatically when window loads:
+        # Play Song:
         self.song = yt.playFirst()
         self.__play()
 
-        # Window: attributes -> window:
+        # Window:
         self.setWindowTitle(self.media_title)
         self.setLayout(main_layout)
 
     def __not_default_entry(self, string: str) -> bool:
         """
-
+        TODO: ** ADD DOCSTRING **
         """
         return string != "" and string != self.default_media_entry
 
     @h.Slot()
     def __queue_song(self) -> str:
         """
-        TODO: How is the queue implemented in the base-code branch? **
-        TODO: There is currently no 'queue'. The media that is played is whatever
-              is in the search field at the time. **
+        TODO: ** UPDATE DOCSTRING **
         """
         if self.__not_default_entry(self.media_entry_field.text()):
-            print(f"{self.media_entry_field.text()} queued!")
-            return self.media_entry_field.text()
+            global new_thumbnail
+            global new_title
+            new_values = call_getSong(
+                self.media_entry_field.text())
+            new_thumbnail = new_values['thumbnail']
+            new_title = new_values['title']
+            self.next_song.setText(new_title)
         else:
-            # Display this message in the window
+            # TODO: Display this message in the window
             print("Cannot queue an empty query!")
 
     @h.Slot()
@@ -217,13 +214,21 @@ class ResultsWindow(h.QWidget):
     @h.Slot()
     def __skip(self) -> None:
         """
-        TODO: How is the queue implemented in the base-code branch? **
-        TODO: When do we know that there are no songs left to skip to? **
-        TODO: How will all the buttons and thumbnail be updated? **
+        TODO: ** UPDATE DOCSTRING **
         """
-        next_song = self.media_entry_field.text()
-        if self.__not_default_entry(next_song):
-            print(f"skipping... now playing {next_song}")
+        next_up = self.media_entry_field.text()
+        if self.__not_default_entry(next_up):
+            yt.nextSong()
+            if yt.queueIsEmpty():
+                self.next_song.setText("Queue is empty.")
+            else:
+                self.next_song.setText(new_title)
+            self.song = yt.media
+            thumbnail = new_thumbnail
+            self.media_thumbnail.setPixmap(
+                h.PySide6.QtGui.QPixmap(thumbnail)
+                .scaled(250, 250, h.Qt.KeepAspectRatio)
+            )
         else:
-            # Display this message in the window
+            # TODO: Display this message in the window
             print("cannot skip.")
