@@ -1,3 +1,4 @@
+# Created by Luz Violeta Robles
 def trim_string(string: str, length: int) -> str:
     """
     Ensure that the length of a string does not exceed `length` characters.

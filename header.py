@@ -1,3 +1,4 @@
+# Created by Leonardo Villalobos
 import sys
 import PySide6.QtGui
 import urllib.request

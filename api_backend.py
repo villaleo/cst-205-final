@@ -1,3 +1,4 @@
+# Created by Austin Seidel
 import header as h
 
 songsplayed = 0
