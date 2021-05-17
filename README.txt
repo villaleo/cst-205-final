@@ -24,4 +24,6 @@ https://github.com/villaleo/cst-205-final.git
 
 If we had more time to build onto the project, we would have implemented a 
 previous song button and displayed the result video instead of just the 
-thumbnail.
+thumbnail.We would have also fixed a known bug where the labels each
+display the last queued song's values instead of the actual next song's
+values.
