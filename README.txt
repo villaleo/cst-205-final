@@ -21,6 +21,8 @@ the amount of requests per day are limited.
 
 Link to the GitHub repository:
 https://github.com/villaleo/cst-205-final.git
+Link to the Trello Workspace:
+https://trello.com/b/VhmhfNPY/final-project-group-36
 
 If we had more time to build onto the project, we would have implemented a 
 previous song button and displayed the result video instead of just the 
