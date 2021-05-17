@@ -20,8 +20,8 @@ dev_names = "Austin Seidel, Luz Violeta Robles, Leonardo Villalobos"
 # NOTE: After changing API keys, perform `pip install youtube-dl --upgrade`
 #       to fix error message.
 # Current key:
-api_key = 'AIzaSyCrJoYWAYN2QH_kcNFxIPFXd88jGpzSapg'
+api_key = 'AIzaSyBCxD4_4bN4Tlfpw8p-5SFBrE9OxhkFYko'
 
 # Other keys:
-# + New, unused key: 'AIzaSyDeO6L6Badzzc2fCR6c6Gc8T4Cg9edOijg'
+# - Quota met @5/16 3:24p: 'AIzaSyCrJoYWAYN2QH_kcNFxIPFXd88jGpzSapg'
 # - Quota met @5/16 12:30p: 'AIzaSyCKAu3TpYJahOHnYmvr_be9-cK-KbGN4C4'
