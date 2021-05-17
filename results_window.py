@@ -1,12 +1,11 @@
+# Created by Leonardo Villalobos
 import header as h
 import api_backend as yt
 import error_window as e
 import trim as t
 
-# TODO: Review Documentation
 
-
-def call_getSong(query: str, add_song=False) -> dict:
+def call_getSong(query: str) -> dict:
     """
     Calls the `getSong()` function from the api_backend.py file.
     Returns a `dict` with the `title` and `thumbnail` of `query`.
@@ -36,7 +35,7 @@ class ResultsWindow(h.QWidget):
     of the video.
 
     + `query` : The user's input which will be sent to YouTube.
-    + `app_name` : The name of the application (to prevent manually changing each instance).
+    + `app_name` : The name of the application.
     """
 
     default_media_entry = "Enter a query to add to queue..."
@@ -50,19 +49,12 @@ class ResultsWindow(h.QWidget):
         self.current_media_values = call_getSong(query)
         self.__SearchResultsWindow(query, app_name)
 
-    def __search(self, query: str, call_func=False) -> dict:
+    def __search(self) -> dict:
         """
-        Calls the `getSong()` function only if `call_func` is `True`.
+        Calls the `getSong()` function.
         Returns a `dict` with the `title` and `thumbnail` of `query`.
-
-        + `query` : The user's input which will be sent to YouTube.
-        + `call_func` : Option to call `getSong()`. `False` by default. 
         """
-        out = self.current_media_values
-
-        if call_func:
-            out = call_getSong(query)
-        return out
+        return self.current_media_values
 
     def __SearchResultsWindow(self, query: str, app_name: str) -> None:
         """
@@ -180,14 +172,19 @@ class ResultsWindow(h.QWidget):
 
     def __not_default_entry(self, string: str) -> bool:
         """
-        TODO: ** ADD DOCSTRING **
+        Returns if the given string is either an empty string or 
+        the default string "Enter a query to add to queue..."
+
+        + `string` : The string to compare to.
         """
         return string != "" and string != self.default_media_entry
 
     @h.Slot()
-    def __queue_song(self) -> str:
+    def __queue_song(self) -> None:
         """
-        TODO: ** UPDATE DOCSTRING **
+        Queues up a song entered by the user. Displays an error window
+        if attempting to queue an invalid query, that is the default 
+        entry or an empty string.
         """
         if self.__not_default_entry(self.media_entry_field.text()):
             global new_thumbnail
@@ -208,7 +205,6 @@ class ResultsWindow(h.QWidget):
         Plays the current song.
         """
         self.song.play()
-        print("playing.")
 
     @h.Slot()
     def __pause(self) -> None:
@@ -216,12 +212,11 @@ class ResultsWindow(h.QWidget):
         Pauses the current song.
         """
         self.song.pause()
-        print("paused.")
 
     @h.Slot()
     def __skip(self) -> None:
         """
-        TODO: ** UPDATE DOCSTRING **
+        Skips the current song and plays the next song.
         """
         next_up = self.media_entry_field.text()
         if self.__not_default_entry(next_up):
@@ -239,5 +234,3 @@ class ResultsWindow(h.QWidget):
                 h.PySide6.QtGui.QPixmap(thumbnail)
                 .scaled(250, 250, h.Qt.KeepAspectRatio)
             )
-        else:
-            print("cannot skip.")
