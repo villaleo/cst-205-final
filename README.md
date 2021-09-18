@@ -14,11 +14,11 @@ May 17, 2021<br>
 <h3>Libraries (or pip installs)</h3>
 <ul>
   <li><code>pip install google-api-python-client</code></li>
-  <li>pip install python-vlc</li>
-  <li>pip install youtube-dl</li>
-  <li>pip install pafy</li>
-  <li>pip install requests</li>
-  <li>pip install PySide6 (Warning! May not function properly with Python 3.9.*)</li>
+  <li><code>pip install python-vlc</code></li>
+  <li><code>pip install youtube-dl</code></li>
+  <li><code>pip install pafy</code></li>
+  <li><code>pip install requests</code></li>
+  <li><code>pip install PySide6</code> (Warning! May not function properly with Python 3.9.*)</li>
 </ul>
 
 
