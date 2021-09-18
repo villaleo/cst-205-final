@@ -27,11 +27,11 @@ Once you have all the programs and pip modules installed, run the main.py
 file on your machine. This program sends requests to a YouTube API, therefore
 the amount of requests per day are limited. 
 
-<h2>Outro</h2><br>
+<h2>Outro</h2>
 <ul>
   <li><a href="https://github.com/villaleo/cst-205-final.git">GitHub repository</a></li>
   <li><a href="https://trello.com/b/VhmhfNPY/final-project-group-36">Trello Workspace</a></li>
-<ul>
+</ul>
 
 If we had more time to build onto the project, we would have implemented a 
 previous song button and displayed the result video instead of just the 
