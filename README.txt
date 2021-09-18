@@ -1,18 +1,19 @@
-BeatFetch
+<h1>BeatFetch</h1>
 
 Developed by Austin Seidel, Luz Violeta Robles, and Leonardo Villalobos
 CST-205 Multimedia Design and Programming
 May 17, 2021
 
-To run this program, you must have the following installed on your machine:
+Dependencies:
 + Python
++ VLC Media Player
 + The following pip installs:
     -> pip install google-api-python-client
     -> pip install python-vlc
     -> pip install youtube-dl
     -> pip install pafy
     -> pip install requests
-+ VLC Media Player
+    -> pip install PySide6 (Warning! May not function properly with Python 3.9.*)
 
 It is recommended to use a virtual environment to organize all the installs.
 Once you have all the programs and pip modules installed, run the main.py
