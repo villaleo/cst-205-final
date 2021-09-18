@@ -13,7 +13,7 @@ May 17, 2021<br>
 </ul>
 <h3>Libraries (or pip installs)</h3>
 <ul>
-  <li>pip install google-api-python-client</li>
+  <li><code>pip install google-api-python-client</code></li>
   <li>pip install python-vlc</li>
   <li>pip install youtube-dl</li>
   <li>pip install pafy</li>
