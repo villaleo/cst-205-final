@@ -1,8 +1,8 @@
 <h1>BeatFetch</h1>
 
-Developed by Austin Seidel, Luz Violeta Robles, and Leonardo Villalobos
-CST-205 Multimedia Design and Programming
-May 17, 2021
+Developed by Austin Seidel, Luz Violeta Robles, and Leonardo Villalobos<br>
+CST-205 Multimedia Design and Programming<br>
+May 17, 2021<br>
 
 <h2>Dependencies</h2>
 + Python
