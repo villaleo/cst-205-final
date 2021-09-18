@@ -27,6 +27,7 @@ Once you have all the programs and pip modules installed, run the main.py
 file on your machine. This program sends requests to a YouTube API, therefore
 the amount of requests per day are limited. 
 
+<h2>Outro</h2>
 Link to the GitHub repository:
 https://github.com/villaleo/cst-205-final.git
 Link to the Trello Workspace:
